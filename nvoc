@@ -111,7 +111,7 @@ echo "Automatically applies these settings on every desktop session start if pro
 echo "Doesn't hang around as a background process - just applies and quits."
 echo
 echo "Usage: nvoc [options]"
-echo "-a, --apply -> Apply overclocks in /etc/nvoc.d/"
+echo "-a, --apply -> Apply overclocks in /etc/nvoc.d/ right now."
 echo "--enable-autostart -> Apply overclocks automatically on session start for this user"
 echo "--disable-autostart -> Disable applying overclocks automatically on session start for this user"
 echo "-h, -v, --help -> Shows this help message"
