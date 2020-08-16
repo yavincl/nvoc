@@ -55,7 +55,7 @@ exit 1
 }
 
 # Detect nvidia-settings, and fail if it doesn't exist
-command -v nvidia-settings || error_nv_settings
+command -v nvidia-settings >/dev/null 2>&1 || error_nv_settings
 
 set_gpu_clock(){
 	 nvidia-settings -a "[gpu:$gpu]/GPUGraphicsClockOffset[$level]=$offset" >/dev/null 2>&1
