@@ -5,7 +5,7 @@ Because I didn't want tools like GWE to launch on autostart and be on the backgr
 This just applies the clocks and exits. It's useful in that there is no way to save overclocks on Linux/Nvidia and they are
 lost on every reboot, so nvoc fills in that gap.
 
-Needs the proprietary Nvidia drivers to work.
+Needs the proprietary Nvidia drivers to work.  
 Doesn't use root (so don't expect nvidia-smi functionality such as watt power limits on the future)
 
 Grab the zip, unzip it and have a look at the files.  
