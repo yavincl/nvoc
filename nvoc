@@ -115,6 +115,8 @@ echo "-a, --apply -> Apply overclocks in /etc/nvoc.d/"
 echo "--enable-autostart -> Apply overclocks automatically on session start for this user"
 echo "--disable-autostart -> Disable applying overclocks automatically on session start for this user"
 echo "-h, -v, --help -> Shows this help message"
+
+exit 0
 }
 
 case $1 in
