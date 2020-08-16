@@ -4,14 +4,18 @@
 # Run: sudo nvidia-xconfig --cool-bits=31
 # Then, restart the computer, or, end your session then log back in.
 
-# OPTIONS - change to your tastes
+# OPTIONS #
+
+# You are better off changing /etc/nvoc.conf.d/gpu0.conf
+# If it doesn't exist, copy the contents of this # OPTIONS # section into /etc/nvoc.conf.d/gpu0.conf
 
 # Nvidia GPU "identification"
 # The GPU to apply these settings to.
 # If you only have one Nvidia GPU, leave it at 0 (for GPU 0).
-# Copy this script somewhere else with another name and set this to another number
-# if you want to set settings to another NVIDIA GPU (GPU 1 or 2 or 3... and so on).
-# Then have it run on startup as well.
+# For multiple GPUs, you will need to make another file in /etc/nvoc.conf.d/.
+# Such as copying the existing one, gpu0.conf to gpu1.conf
+# Do this for each Nvidia GPU on the system, incrementing the gpu= value for each one (GPU 1, GPU 2..)
+# Note that the config file name has no effect on this!
 
 gpu=0
 
@@ -46,8 +50,7 @@ mem_clock_offset_medium="0"
 
 mem_clock_offset_high="0" 
 
-# CODE
-# The script begins here.
+# OPTIONS #
 
 error_nv_settings(){
 echo "Couldn't find nvidia-settings! Exiting."
@@ -65,6 +68,7 @@ set_mem_clock(){
 	 nvidia-settings -a "[gpu:$gpu]/GPUMemoryTransferRateOffset[$level]=$offset" >/dev/null 2>&1
 }
 
+main(){
 # Set GPU low-perf clocks
 level=0
 offset=$gpu_core_clock_offset_low
@@ -97,7 +101,7 @@ level=3
 set_gpu_clock && echo "Applied core overclocking (high perf-2)"
 else
 echo "High performance core clocks remain unchanged."
-echo "You might want to edit the script file."
+echo "You might want to edit the configuration file at /etc/nvoc.d/gpu$gpu.conf."
 fi
 
 level=2          
@@ -108,8 +112,20 @@ level=3
 set_mem_clock && echo "Applied memory overclocking (high perf-2)"
 else
 echo "High performance memory clocks remain unchanged."
-echo "You might want to edit the script file."
+echo "You might want to edit the configuration file at /etc/nvoc.d/gpu$gpu.conf."
+fi
+echo "All settings applied for GPU $gpu."
+}
+
+# Import settings and run
+if [[ -d /etc/nvoc.d ]]; then
+	for i in /etc/nvoc.d/*.conf; do
+	source $i && main
+	done
+else
+	main
 fi
 
-echo All settings applied.
+echo "Done."
+
 
