@@ -15,18 +15,10 @@ Then place the `nvoc` script in `/usr/bin`.
 Now you can run `nvoc` anytime to apply your overclocking settings.  
 
 The whole point of nvoc is to have it autostart with the desktop session.
-To have it autostart with the desktop, open a terminal and run:  
-`nano ~/.config/autostart/nvoc.desktop`
+To have it automatically start with the system, open a terminal and run:  
+`nvoc --enable-autostart`
+To stop it from autostarting, run:
+`nvoc --disable-autostart`
 
-Then, paste in the following and save (Ctrl+X)
-```
-Exec=nvoc
-Icon=system-run
-Name=nvoc
-OnlyShowIn=
-Path=
-Terminal=False
-Type=Application
-```
 All done. Overclocks will now be applied as soon as you log into your desktop.  
 If you don't use a desktop (say, on a coin mining headless box) you could have the script run on boot via cron.
