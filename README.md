@@ -10,9 +10,9 @@ Doesn't use root (so don't expect nvidia-smi functionality such as watt power li
 
 Grab the zip, unzip it and have a look at the files.  
 Edit the gpu0.conf file and set your preferred clocks in the Options section.  
-Now, we copy the configuration file to a special folder: `sudo mkdir /etc/nvoc.d; sudo cp gpu0.conf /etc/nvoc.d/`
-Make the script executable: run `chmod +x nvoc`  
-Then place the script in `/usr/bin`. Then, run `nvoc` to have it apply your settings.  
+Now, we copy the configuration file to a special folder: `sudo mkdir /etc/nvoc.d; sudo cp gpu0.conf /etc/nvoc.d/`  
+Then place the `nvoc` script in `/usr/bin`.  
+Now you can run `nvoc` anytime to apply your overclocking settings.  
 
 The whole point of nvoc is to have it autostart with the desktop session.
 To have it autostart with the desktop, open a terminal and run:  
