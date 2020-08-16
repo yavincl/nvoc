@@ -9,7 +9,9 @@ Needs the proprietary Nvidia drivers to work.
 Doesn't use root (so don't expect nvidia-smi functionality such as watt power limits on the future)
 
 Grab the zip, unzip it and have a look at the script file.  
-Edit the file and set your preferred clocks in the Options section. Then place the script in `/usr/bin`. Then, run `nvoc` to have it apply your settings.
+Edit the file and set your preferred clocks in the Options section. 
+Make the script executable. Run `chmod +x nvoc`
+Then place the script in `/usr/bin`. Then, run `nvoc` to have it apply your settings.
 
 If you have more than one Nvidia GPU installed you'll need to have multiple copies of the script for each GPU, you'll just need to put gpu=1 in the second copy, for example, and so on. You could name them nvoc-0, nvoc-1,... as long as you put them in `/usr/bin` or somewhere else in the PATH.
 
