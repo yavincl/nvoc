@@ -1,0 +1,107 @@
+#!/bin/bash
+# Bash script to apply NVIDIA GPU overclocking and power settings on session start
+# To use overclocking, make sure your graphics card is allowing it first.
+# Run: sudo nvidia-xconfig --cool-bits=31
+# Then, restart the computer, or, end your session then log back in.
+
+# OPTIONS - change to your tastes
+
+# Nvidia GPU "identification"
+# The GPU to apply these settings to.
+# If you only have one Nvidia GPU, leave it at 0 (for GPU 0).
+# Copy this script somewhere else with another name and set this to another number
+# if you want to set settings to another NVIDIA GPU (GPU 1 or 2 or 3... and so on).
+# Then have it run on startup as well.
+
+gpu=0
+
+# OVERCLOCKING
+# Graphics core clock offsets in MHz (a number between -200 and 1200)
+# The number you set will be added to the base clock.
+# On low performance mode, offset clocks by:
+
+gpu_core_clock_offset_low="0"
+
+# On medium performance mode, offset clocks by:
+
+gpu_core_clock_offset_medium="0"
+
+# High performance mode OC. You probably want to change this for gaming.
+# On high performance mode, offset clocks by:
+
+gpu_core_clock_offset_high="230"
+
+# Memory clocks offsets in MHz (a number between -2000 and 2000)
+# The number you set will be added to the base clock. 
+# On low performance mode, offset clocks by:
+
+mem_clock_offset_low="0" 
+
+# On medium performance mode, offset clocks by:
+
+mem_clock_offset_medium="0"
+
+# High performance mode OC. You probably want to change this for gaming.
+# On high performance mode, offset clocks by:
+
+mem_clock_offset_high="1050" 
+
+# CODE
+# The script begins here.
+
+set_gpu_clock(){
+	 nvidia-settings -a "[gpu:$gpu]/GPUGraphicsClockOffset[$level]=$offset" >/dev/null 2>&1
+}
+
+set_mem_clock(){
+	 nvidia-settings -a "[gpu:$gpu]/GPUMemoryTransferRateOffset[$level]=$offset" >/dev/null 2>&1
+}
+
+# Set GPU low-perf clocks
+level=0
+offset=$gpu_core_clock_offset_low
+if (( $offset != 0 )); then
+set_gpu_clock && echo "Applied core overclocking (low perf)"
+fi
+offset=$mem_clock_offset_low
+if (( $offset != 0 )); then
+set_mem_clock && echo "Applied memory overclocking (low perf)"
+fi
+# Set GPU medium-perf clocks
+level=1
+offset=$gpu_core_clock_offset_medium
+if (( $offset != 0 )); then
+set_gpu_clock && echo "Applied core overclocking (medium perf)"
+fi
+offset=$mem_clock_offset_medium
+if (( $offset != 0 )); then
+set_mem_clock && echo "Applied memory overclocking (medium perf)"
+fi
+
+# Set GPU high-perf clocks
+# Some GPUs don't have the level 3 performance level,
+# so we mash 2 and 3 together.
+level=2 
+offset=$gpu_core_clock_offset_high
+if (( $offset != 0 )); then
+set_gpu_clock && echo "Applied core overclocking (high perf-1)"
+level=3
+set_gpu_clock && echo "Applied core overclocking (high perf-2)"
+else
+echo "High performance core clocks remain unchanged."
+echo "You might want to edit the script file."
+fi
+
+level=2          
+offset=$mem_clock_offset_high
+if (( $offset != 0 )); then
+set_mem_clock && echo "Applied memory overclocking (high perf-1)"
+level=3
+set_mem_clock && echo "Applied memory overclocking (high perf-2)"
+else
+echo "High performance memory clocks remain unchanged."
+echo "You might want to edit the script file."
+fi
+
+echo All settings applied.
+
