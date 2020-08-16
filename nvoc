@@ -3,6 +3,7 @@
 # To use overclocking, make sure your graphics card is allowing it first.
 # Run: sudo nvidia-xconfig --cool-bits=31
 # Then, restart the computer, or, end your session then log back in.
+version='1.0.2'
 
 error_nv_settings(){
 echo "Couldn't find nvidia-settings! Exiting."
@@ -87,11 +88,7 @@ fi
 echo "All settings applied for GPU $gpu."
 }
 
-case $1 in
- 	--enable-autostart) enable_autostart;;
-	--disable-autostart) disable_autostart;;
-esac
-
+apply_all(){
 # Detect nvidia-settings, and fail if it doesn't exist
 command -v nvidia-settings >/dev/null 2>&1 || error_nv_settings
 
@@ -102,9 +99,32 @@ if [[ -d /etc/nvoc.d ]]; then
 	done
 else
 	echo "No configuration file found at /etc/nvoc.d/, exiting."
+	echo "Try 'nvoc --help' for more information."
 	exit 1
 fi
+}
 
+print_help(){
+echo "nvoc $version: the Nvidia overclocking offsets saver."
+echo "Saves nvidia overclocking settings as easily editable configuration files in /etc/nvoc.d/"
+echo "Automatically applies these settings on every desktop session start if prompted to. (try nvoc --enable-autostart)"
+echo "Doesn't hang around as a background process - just applies and quits."
+echo
+echo "Usage: nvoc [options]"
+echo "-a, --apply -> Apply overclocks in /etc/nvoc.d/"
+echo "--enable-autostart -> Apply overclocks automatically on session start for this user"
+echo "--disable-autostart -> Disable applying overclocks automatically on session start for this user"
+echo "-h, -v, --help -> Shows this help message"
+}
+
+case $1 in
+ 	--enable-autostart) enable_autostart;;
+	--disable-autostart) disable_autostart;;
+	-h|-v|--help) print_help;;
+	--apply|-a) apply_all;;
+	*) echo "nvoc $version: the Nvidia overclocking offsets saver."
+	   echo "Unknown command. Try 'nvoc --help' for more information."; exit 0 ;;
+esac
 echo "Done."
 
 
