@@ -12,7 +12,7 @@ Grab the zip, unzip it and have a look at the files.
 Edit the gpu0.conf file and set your preferred clocks in the Options section.  
 Now, we copy the configuration file to a special folder: `sudo mkdir /etc/nvoc.d; sudo cp gpu0.conf /etc/nvoc.d/`  
 Then place the `nvoc` script in `/usr/bin`.  
-Now you can run `nvoc` anytime to apply your overclocking settings.  
+Now you can run `nvoc --apply` anytime to apply your overclocking settings.  
 
 The whole point of nvoc is to have it autostart with the desktop session.  
 To have it automatically start with the system, open a terminal and run (Note that this only enables it for your user.):    
