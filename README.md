@@ -15,8 +15,7 @@ Then place the `nvoc` script in `/usr/bin`.
 Now you can run `nvoc` anytime to apply your overclocking settings.  
 
 The whole point of nvoc is to have it autostart with the desktop session.  
-To have it automatically start with the system, open a terminal and run:  
-Note that this only enables it for your user.    
+To have it automatically start with the system, open a terminal and run (Note that this only enables it for your user.):    
 `nvoc --enable-autostart`  
 To stop it from autostarting, run:  
 `nvoc --disable-autostart`  
