@@ -49,6 +49,14 @@ mem_clock_offset_high="0"
 # CODE
 # The script begins here.
 
+error_nv_settings(){
+echo "Couldn't find nvidia-settings! Exiting."
+exit 1
+}
+
+# Detect nvidia-settings, and fail if it doesn't exist
+command -v nvidia-settings || error_nv_settings
+
 set_gpu_clock(){
 	 nvidia-settings -a "[gpu:$gpu]/GPUGraphicsClockOffset[$level]=$offset" >/dev/null 2>&1
 }
