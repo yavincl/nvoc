@@ -18,10 +18,10 @@ set_mem_clock(){
 }
 
 # Full path for autostart file
-file_path="~/.config/autostart/nvoc.desktop"
+file_path="$HOME/.config/autostart/nvoc.desktop"
 
 enable_autostart(){
-mkdir -p ~/.config/autostart 2>/dev/null
+mkdir -p $HOME/.config/autostart 2>/dev/null
 echo "Exec=nvoc" > $file_path
 echo "Icon=system-run" >> $file_path
 echo "Name=nvoc" >> $file_path
