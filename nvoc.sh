@@ -29,7 +29,7 @@ gpu_core_clock_offset_medium="0"
 # High performance mode OC. You probably want to change this for gaming.
 # On high performance mode, offset clocks by:
 
-gpu_core_clock_offset_high="230"
+gpu_core_clock_offset_high="0"
 
 # Memory clocks offsets in MHz (a number between -2000 and 2000)
 # The number you set will be added to the base clock. 
@@ -44,7 +44,7 @@ mem_clock_offset_medium="0"
 # High performance mode OC. You probably want to change this for gaming.
 # On high performance mode, offset clocks by:
 
-mem_clock_offset_high="1050" 
+mem_clock_offset_high="0" 
 
 # CODE
 # The script begins here.
