@@ -3,7 +3,7 @@
 # To use overclocking, make sure your graphics card is allowing it first.
 # Run: sudo nvidia-xconfig --cool-bits=31
 # Then, restart the computer, or, end your session then log back in.
-version='1.0.2'
+version='1.0.3'
 
 error_nv_settings(){
 echo "Couldn't find nvidia-settings! Exiting."
@@ -24,7 +24,7 @@ file_path="$HOME/.config/autostart/nvoc.desktop"
 enable_autostart(){
 mkdir -p $HOME/.config/autostart 2>/dev/null
 echo "[Desktop Entry]" > $file_path
-echo "Exec=nvoc" >> $file_path
+echo "Exec=nvoc --apply" >> $file_path
 echo "Icon=system-run" >> $file_path
 echo "Name=nvoc" >> $file_path
 echo "Terminal=False" >> $file_path
