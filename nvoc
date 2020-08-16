@@ -9,15 +9,32 @@ echo "Couldn't find nvidia-settings! Exiting."
 exit 1
 }
 
-# Detect nvidia-settings, and fail if it doesn't exist
-command -v nvidia-settings >/dev/null 2>&1 || error_nv_settings
-
 set_gpu_clock(){
 	 nvidia-settings -a "[gpu:$gpu]/GPUGraphicsClockOffset[$level]=$offset" >/dev/null 2>&1
 }
 
 set_mem_clock(){
 	 nvidia-settings -a "[gpu:$gpu]/GPUMemoryTransferRateOffset[$level]=$offset" >/dev/null 2>&1
+}
+
+# Full path for autostart file
+file_path="~/.config/autostart/nvoc.desktop"
+
+enable_autostart(){
+mkdir -p ~/.config/autostart 2>/dev/null
+echo "Exec=nvoc" > $file_path
+echo "Icon=system-run" >> $file_path
+echo "Name=nvoc" >> $file_path
+echo "Terminal=False" >> $file_path
+echo "Type=Application" >> $file_path
+echo "Enabled nvoc auto-apply on login."
+exit 0
+}
+
+disable_autostart(){
+rm $file_path 2>/dev/null
+echo "Disabled nvoc auto-apply on login."
+exit 0
 }
 
 main(){
@@ -69,8 +86,15 @@ fi
 echo "All settings applied for GPU $gpu."
 }
 
-# Import settings and run
+case $1 in
+ 	--enable-autostart) enable_autostart;;
+	--disable-autostart) disable_autostart;;
+esac
 
+# Detect nvidia-settings, and fail if it doesn't exist
+command -v nvidia-settings >/dev/null 2>&1 || error_nv_settings
+
+# Import settings and run
 if [[ -d /etc/nvoc.d ]]; then
 	for i in /etc/nvoc.d/*.conf; do
 	source $i && main
